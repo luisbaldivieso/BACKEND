@@ -1,8 +1,20 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const TransaccionSchema = new Schema({
-  cuentaOrigen: { type: Schema.Types.ObjectId, ref: 'Cuenta', required: true },
-  cuentaDestino: { type: Schema.Types.ObjectId, ref: 'Cuenta', required: true },
-  monto: { type: Number, required: true },
-  fecha: { type: Date, default: Date.now },
-}, { timestamps: true });
+@Schema()
+export class Transaccion {
+  @Prop({ required: true })
+  cuentaOrigen: string;
+
+  @Prop({ required: true })
+  cuentaDestino: string;
+
+  @Prop({ required: true })
+  monto: number;
+
+  @Prop({ default: Date.now })
+  fecha: Date;
+}
+
+export type TransaccionDocument = Transaccion & Document;
+export const TransaccionSchema = SchemaFactory.createForClass(Transaccion);

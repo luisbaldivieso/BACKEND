@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { TransaccionService } from '../services/transaccion.service';
 
 @Controller('transacciones')
 export class TransaccionController {
-  constructor(private readonly transaccionService: TransaccionService) {}
+  constructor(private transaccionService: TransaccionService) {}
+
+  @Post('transferir')
+  transferir(@Body() datos: any) {
+    return this.transaccionService.transferir(
+      datos.cuentaOrigen,
+      datos.cuentaDestino,
+      datos.monto,
+    );
+  }
 
   @Get()
-  findAll() {
-    return this.transaccionService.findAll();
+  historial() {
+    return this.transaccionService.historial();
   }
 }

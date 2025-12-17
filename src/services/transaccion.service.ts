@@ -1,14 +1,14 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Transaccion } from '../schemas/transaccion.schema';
-import { Cuenta } from '../schemas/cuenta.schema';
+import { TransaccionDocument } from '../schemas/transaccion.schema';
+import { CuentaDocument } from '../schemas/cuenta.schema';
 
 @Injectable()
 export class TransaccionService {
   constructor(
-    @InjectModel('Transaccion') private transaccionModel: Model<Transaccion>,
-    @InjectModel('Cuenta') private cuentaModel: Model<Cuenta>,
+    @InjectModel('Transaccion') private transaccionModel: Model<TransaccionDocument>,
+    @InjectModel('Cuenta') private cuentaModel: Model<CuentaDocument>,
   ) {}
 
   async transferir(cuentaOrigen: string, cuentaDestino: string, monto: number) {

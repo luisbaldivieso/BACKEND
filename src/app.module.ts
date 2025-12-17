@@ -15,7 +15,7 @@ import { TransaccionSchema } from './schemas/transaccion.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/app_banco'),
+    MongooseModule.forRoot('mongodb://localhost:27017/banco-BV'),
     MongooseModule.forFeature([
       { name: 'Usuario', schema: UsuarioSchema },
       { name: 'Cuenta', schema: CuentaSchema },

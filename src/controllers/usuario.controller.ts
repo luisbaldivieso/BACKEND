@@ -1,28 +1,14 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 
-@Controller('usuarios')
+@Controller('usuarios') // 👈 esto define el prefijo /usuarios
 export class UsuarioController {
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
-  @Post('crear')
-  crear(@Body() datos: any) {
-    return this.usuarioService.crearUsuario(
-      datos.correo,
-      datos.password,
-    );
-  }
-
-  @Post('login')
-  login(@Body() datos: any) {
-    return this.usuarioService.login(
-      datos.correo,
-      datos.password,
-    );
-  }
-
-  @Get()
-  listar() {
-    return this.usuarioService.listarUsuarios();
+  @Post('login') // 👈 esto define /usuarios/login
+  async login(@Body() body: any) {
+    const { correo, password } = body;
+    const usuario = await this.usuarioService.login(correo, password);
+    return usuario;
   }
 }

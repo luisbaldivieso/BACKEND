@@ -1,7 +1,17 @@
-import { Schema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 
-export const CuentaSchema = new Schema({
-  numero: { type: String, required: true, unique: true },
-  saldo: { type: Number, required: true, default: 0 },
-  propietario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
-}, { timestamps: true });
+@Schema()
+export class Cuenta {
+  @Prop({ required: true })
+  usuarioId: string;
+
+  @Prop({ required: true, unique: true })
+  numeroCuenta: string;
+
+  @Prop({ default: 0 })
+  saldo: number;
+}
+
+export type CuentaDocument = Cuenta & Document;
+export const CuentaSchema = SchemaFactory.createForClass(Cuenta);
